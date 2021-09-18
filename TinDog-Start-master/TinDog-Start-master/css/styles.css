@@ -1,0 +1,155 @@
+h1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+  font-family: "Montserrat";
+  font-size: 2rem;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+p {
+  color: #8f8f8f;
+}
+
+body {
+  font-family: "Montserrat"
+}
+
+.container-fluid {
+  padding: 3% 15%;
+}
+
+.ipornimg {
+  transform: rotate(20deg);
+  width: 60%;
+  position: absolute;
+  right: 30%;
+}
+
+#title {
+  background-color: #ff4c68;
+  color: #ffffff;
+}
+
+/* navigation Bar */
+.navbar-brand {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.navbar {
+  padding: 0 0 4.5rem;
+}
+
+.nav-item {
+  padding: 0px 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: "Montserrat"
+    font-weight: lighter;
+}
+
+/* Features section */
+#features {
+  padding: 7% 15%;
+  background-color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-section {
+  text-align: center;
+  color: #ef8172;
+  margin-bottom: 20px;
+}
+
+.icon-section:hover {
+  color: red;
+}
+.col-lg-6 h1  {
+  color: pink;
+}
+
+/* Testimonials  */
+#testimonials {
+  background-color: #ef8172;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.carousel-item {
+  padding: 7% 15%;
+}
+
+.testimonial-image {
+  width: 10%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+/* Press Section */
+#press {
+  background-color: #ef8172;
+  text-align: center;
+  padding-bottom: 3%;
+}
+
+.press-logo {
+  width: 10%;
+  margin: 20px 20px 50px;
+}
+
+/* pricing Section */
+#pricing {
+  padding: 100px;
+  text-align: center;
+}
+
+.pricing-column {
+  padding: 3% 2%;
+}
+
+/* Call to Action Section */
+#cta {
+  background-color: #ff4c68;
+  color: #fff;
+  font-family: "Montserrat";
+  padding: 7% 15%;
+  text-align: center;
+
+}
+#cta-title {
+  font-size: 3.5rem;
+  line-height: 1.5;
+  text-align: center;
+  position: relative;
+}
+
+/* Footer Section */
+#footer {
+  padding: 7% 15%;
+  text-align: center;
+}
+
+.footer-icon {
+  margin: 20px 10px;
+}
+
+@media (max-width : 991px) {
+  #title {
+    text-align: center;
+  }
+
+  .ipornimg {
+    position: static;
+    transform: rotate(0deg);
+  }
+}
