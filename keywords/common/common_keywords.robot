@@ -1,101 +1,55 @@
-*** Keywords ***
-Open web browser with specific URL path
-    [Arguments]    ${URL_path}
-    Run Keyword If    '${TEST_PLATFORM}'=='${common_test_platform.responsive}'    Open responsive web browser with specific URL path    ${URL_path}
-    ...    ELSE    Open desktop web browser with specific URL path    ${URL_path}
+***Keywords***
+Open Chrome browser
+    [Arguments]                     ${url}                         ${browser}
+    Open Browser                    ${url}                         ${browser}
+    Maximize Browser Window
+    Set Browser Implicit Wait       10
 
-Wait until page is completely loaded
-    SeleniumLibrary.Instrument Browser
-    SeleniumLibrary.Wait For Testability Ready
+Get Valid File Name
+    [Arguments]    ${fname}
+    ${valid_fname}     Evaluate    base64.urlsafe_b64encode($fname.decode('ascii')) if sys.version_info.major==2 else base64.urlsafe_b64encode($fname.encode('UTF-8'))    modules=sys,base64
+    [Return]    ${valid_fname}
 
-Add cookie for disable capcha
-    SeleniumLibrary.Add Cookie    tokenCaptcha    centralfrontend
+Test Teardown
+    [Documentation]    All testcase always capture screenshot and all failed case always logs and returns the HTML source of the current page or frame.
+    ${sc_fname}=    common_keywords.Get Valid File Name     ${TEST_NAME}
+    ${status}    ${screenshot_path}    Run Keyword And Ignore Error    SeleniumLibrary.Capture Page Screenshot    ${sc_fname}_{index}.png
+    Set Suite Variable    ${${TEST_NAME}}    ${screenshot_path}
+    Run Keyword If Test Failed    Run Keyword And Ignore Error    SeleniumLibrary.Log Source
 
-Add cookie to turn on omni feature
-    SeleniumLibrary.Delete Cookie    _gaexp
-    SeleniumLibrary.Add Cookie    _gaexp    GAX1.3.UBTA_e5wRBGGQsmceiWB5Q.18663.1
+Keyword Teardown
+    ${sc_fname}=    common_keywords.Get Valid File Name     ${TEST_NAME}
+    Run Keyword And Ignore Error    SeleniumLibrary.Capture Page Screenshot    ${sc_fname}_{index}.png
+    Run Keyword If  '${KEYWORD STATUS}'=='FAIL'   SeleniumLibrary.Log Source
 
-Get cookie value from browser
-    [Arguments]    ${name}
-    ${cookie_object}=    SeleniumLibrary.Get Cookie    ${name}
-    [Return]    ${cookie_object.value}
+Click Element
+    [Documentation]    ${locator} - could be any selenium locator and webelement object
+    ...    ${timeout} - <optional>
+    ...    Make sure that ${GLOBALTIMEOUT} can be accessed globally
+    [Arguments]    ${locator}    
+    SeleniumLibrary.Wait Until Element Is Visible     ${locator}    
+    SeleniumLibrary.Click Element  ${locator}
 
-Verify Experiment Id From Cookies
-    [Documentation]    This keyword will verify cookie ga_exp value that match with our argument or not
-    ...                After matched it will return value from last index - eg. 0 [disable] , 1 [enable]
-    ...                If it not matched , return ${False} value
-    [Arguments]    ${ga_exp}    ${default_exp}
-    ${ga_cookie}=    SeleniumLibrary.Get Cookie    _gaexp
-    ${exp_result}=    String.Get Regexp Matches    ${ga_cookie.value}    ${ga_exp}.\\d*.\\d
-    ${exp_count}=    Get Length    ${exp_result}
-    Set Test Variable    ${ga_exp}    ${default_exp}
-    Return From Keyword If    '${exp_count}'<'1'    ${False}
-    ${value}=    String.Get Substring    ${exp_result}[0]    -1
-    Set Test Variable    ${ga_exp}    ${value}
-
-Select new window
-    SeleniumLibrary.Switch Window    locator=NEW    timeout=${GLOBALTIMEOUT}
-
-Select main window
-    SeleniumLibrary.Switch Window    locator=MAIN    timeout=${GLOBALTIMEOUT}
-
-Scroll down to fetch data until element is contained in page
-    [Documentation]    Use For Loop to scroll with height until element is fetched and contained in page, this is to support lazy load
-    ...    pageHeight-(scrollLength*index)
-    [Arguments]    ${locator}
-    ${section}=    Set Variable    ${10}
-    ${page_height}=    SeleniumLibrary.Get Element Size    ${dict_home_page}[lbl_homepage]
-    ${page_height}=    Set Variable    ${page_height}[1]
-    ${scroll_length}=    Evaluate    '${page_height}/${section}'
-    FOR    ${index}    IN RANGE    ${section}
-        SeleniumLibrary.Execute Javascript    window.scrollTo(0, ${${page_height}-${${scroll_length}*${index}}})
-        ${status}=    Run Keyword And Return Status    SeleniumLibrary.Wait Until Page Contains Element    ${locator}    timeout=10
-        Return From Keyword If  '${status}' == '${true}'
+Verify Web Elements Are Visible
+    [Documentation]    This keyword verify that page contains elements specified in arguments and verify each element is visible
+    ...    ${elems}    - Varargs of locators or webelements
+    [Arguments]     @{elems}
+    SeleniumLibrary.Wait Until Page Contains Element    ${elems}[0]    
+    FOR    ${elem}    IN    @{elems}
+        SeleniumLibrary.Wait Until Element Is Visible    ${elem}    
     END
-    Fail    This element cannot be found in this page.
 
-Go to direct url
-    [Arguments]    ${path}
-    SeleniumLibrary.Go To    ${${BU.lower()}_url}/${language}/${path}
-    Wait until page is completely loaded
+Mouse over
+    [Arguments]     ${locator}
+    common_keywords.Verify Web Elements Are Visible  ${locator}
+    SeleniumLibrary.Mouse Over  ${locator}
 
-Go to RBS landing page
-    SeleniumLibrary.Go To    https://${ENV.lower()}.robinson.co.th/${LANGUAGE.lower()}
-
-Click on search box
-   CommonWebKeywords.Click Element     ${dict_pdp_page}[search_box]
-
-Remove text value
-    ${search_value}=    Get Value    ${dict_pdp_page}[search_box]
-    ${length}=    Get Length    ${search_value}
-    Run Keyword If    ${length}!=0    CommonWebKeywords.Click Element    ${dict_pdp_page}[btn_x_on_search_box]
-
-Input text into search box
-    [Arguments]    ${text}
-    CommonWebKeywords.Click Element    ${dict_pdp_page}[search_box]
-    CommonWebKeywords.Input Text And Verify Input For Web Element    ${dict_pdp_page}[search_box]    ${text}
-
-Press Enter key to search a product
-    SeleniumLibrary.Press Keys    None    RETURN
-
-Select product in search box popup
-    [Arguments]    ${product}
-    ${product_locator}=    CommonKeywords.Format Text    ${dict_home_page}[lbl_product_list]     $product=${product}
-    CommonWebKeywords.Click Element     ${product_locator}
-
-Verify url pattern
-    [Documentation]    Replace url pattern with a dictionary based on given items
-    [Arguments]    ${expected_pattern}    ${dict_replace_pattern}
-    FOR    ${key}    ${value}    IN    &{dict_replace_pattern}
-        ${expected_pattern}=    Replace String    ${expected_pattern}    ${key}    ${value}
-    END
-    ${current_url}    SeleniumLibrary.Get Location
-    Should Be Equal     ${current_url}    ${${BU.lower()}_url}${expected_pattern}
-
-Genarate random key value parameters
-    [Arguments]     ${number_of_characters}    ${number_of_numbers}
-    ${current_url}    SeleniumLibrary.Get Location
-    ${random_character}    String.Generate Random String    ${number_of_characters}    [LETTERS]
-    ${random_number}    String.Generate Random String    ${number_of_numbers}    [NUMBERS]
-    ${url_with_invalid_parameter}    Set Variable    ${current_url}/?${random_character}=${random_number}
-    [Return]    ${url_with_invalid_parameter}
+Input Text And Verify Input For Web Element
+    [Documentation]    ${locator} - could be any selenium locator and webelement object
+    ...    ${text} - text to be verified
+    [Arguments]     ${locator}      ${text}    ${retry}=3    ${duration}=10
+    Wait Until Keyword Succeeds     ${retry} x    ${duration} sec    SeleniumLibrary.Page Should Contain Element    ${locator} 
+    SeleniumLibrary.Clear Element Text    ${locator}
+    SeleniumLibrary.Input Text     ${locator}    ${text}
+    ${entered_text}=    SeleniumLibrary.Get Value    ${locator}
+    Should Be Equal    '${entered_text}'    '${text}'

@@ -1,1 +1,4 @@
-uat_url: https://apecom.uat-hs.com
+asia_url: https://apecom.uat-hs.com/asia
+kr_url: https://apecom.uat-hs.com/korea
+jp_url: https://apecom.uat-hs.com/japan
+chrome_browser: Chrome
