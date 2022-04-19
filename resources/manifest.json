@@ -1,0 +1,9 @@
+{
+"manifest_version": 2,
+    "name": "Automated extension for staging.central.co.th",
+    "version": "1.0",
+    "permissions": ["<all_urls>", "webRequest", "webRequestBlocking"],
+    "background": {
+      "scripts": ["background.js"]
+    }
+}
