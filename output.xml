@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.1 (Python 3.10.2 on win32)" generated="20220419 22:46:53.570" rpa="false" schemaversion="2">
+<suite id="s1" name="Asia" source="F:\ROBOT\DELTA\Web-Development\testcases\web\main flow\asia.robot">
+<test id="s1-t1" name="Just for test">
+<kw name="Open Chrome browser" library="common_keywords" type="SETUP">
+<arg>${asia_url}</arg>
+<arg>${chrome_browser}</arg>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${url}</arg>
+<arg>${browser}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220419 22:46:55.730" level="INFO">Opening browser 'Chrome' to base url 'https://apecom.uat-hs.com/asia'.</msg>
+<status status="PASS" starttime="20220419 22:46:55.729" endtime="20220419 22:47:03.289"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20220419 22:47:03.290" endtime="20220419 22:47:03.427"/>
+</kw>
+<kw name="Set Browser Implicit Wait" library="SeleniumLibrary">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220419 22:47:03.428" endtime="20220419 22:47:03.431"/>
+</kw>
+<status status="PASS" starttime="20220419 22:46:55.728" endtime="20220419 22:47:03.432"/>
+</kw>
+<kw name="Login by email, password successfully" library="login">
+<arg>quachh@science.regn.net</arg>
+<arg>hien@2345</arg>
+<kw name="Hover on user icon" library="home_page">
+<kw name="Mouse over" library="common_keywords">
+<arg>${home_page.user_icon}</arg>
+<kw name="Verify Web Elements Are Visible" library="common_keywords">
+<arg>${locator}</arg>
+<doc>This keyword verify that page contains elements specified in arguments and verify each element is visible
+${elems} - Varargs of locators or webelements</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${elems}[0]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20220419 22:47:03.442" endtime="20220419 22:47:03.515"/>
+</kw>
+<for flavor="IN">
+<var>${elem}</var>
+<value>@{elems}</value>
+<iter>
+<var name="${elem}">xpath=//div[@class='panel wrapper']//a[@class='user_icon']</var>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${elem}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220419 22:47:03.518" endtime="20220419 22:47:03.585"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:03.517" endtime="20220419 22:47:03.585"/>
+</iter>
+<status status="PASS" starttime="20220419 22:47:03.516" endtime="20220419 22:47:03.585"/>
+</for>
+<status status="PASS" starttime="20220419 22:47:03.441" endtime="20220419 22:47:03.586"/>
+</kw>
+<kw name="Mouse Over" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Simulates hovering the mouse over the element ``locator``.</doc>
+<msg timestamp="20220419 22:47:03.588" level="INFO">Simulating Mouse Over on element 'xpath=//div[@class='panel wrapper']//a[@class='user_icon']'.</msg>
+<status status="PASS" starttime="20220419 22:47:03.587" endtime="20220419 22:47:03.997"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:03.436" endtime="20220419 22:47:03.997"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:03.435" endtime="20220419 22:47:03.998"/>
+</kw>
+<kw name="Click on Sign In button" library="home_page">
+<kw name="Click Element" library="common_keywords">
+<arg>${home_page.SignIn_link}</arg>
+<doc>${locator} - could be any selenium locator and webelement object
+${timeout} - &lt;optional&gt;
+Make sure that ${GLOBALTIMEOUT} can be accessed globally</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220419 22:47:04.003" endtime="20220419 22:47:04.033"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220419 22:47:04.033" level="INFO">Clicking element 'xpath=//ul[@class='header links']//li[@class='authorization-link']'.</msg>
+<status status="PASS" starttime="20220419 22:47:04.033" endtime="20220419 22:47:04.975"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:04.002" endtime="20220419 22:47:04.976"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:03.998" endtime="20220419 22:47:04.977"/>
+</kw>
+<kw name="Input email" library="login_page">
+<arg>${email}</arg>
+<kw name="Verify Web Elements Are Visible" library="common_keywords">
+<arg>${login_page.email_box}</arg>
+<doc>This keyword verify that page contains elements specified in arguments and verify each element is visible
+${elems} - Varargs of locators or webelements</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${elems}[0]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20220419 22:47:04.985" endtime="20220419 22:47:05.109"/>
+</kw>
+<for flavor="IN">
+<var>${elem}</var>
+<value>@{elems}</value>
+<iter>
+<var name="${elem}">xpath=//form[@class='form form-login']//input[@name='login[username]']</var>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${elem}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220419 22:47:05.111" endtime="20220419 22:47:05.296"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.110" endtime="20220419 22:47:05.296"/>
+</iter>
+<status status="PASS" starttime="20220419 22:47:05.110" endtime="20220419 22:47:05.296"/>
+</for>
+<status status="PASS" starttime="20220419 22:47:04.982" endtime="20220419 22:47:05.297"/>
+</kw>
+<kw name="Input Text And Verify Input For Web Element" library="common_keywords">
+<arg>${login_page.email_box}</arg>
+<arg>${email}</arg>
+<doc>${locator} - could be any selenium locator and webelement object
+${text} - text to be verified</doc>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${retry} x</arg>
+<arg>${duration} sec</arg>
+<arg>SeleniumLibrary.Page Should Contain Element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220419 22:47:05.348" level="INFO">Current page contains element 'xpath=//form[@class='form form-login']//input[@name='login[username]']'.</msg>
+<status status="PASS" starttime="20220419 22:47:05.305" endtime="20220419 22:47:05.348"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.303" endtime="20220419 22:47:05.348"/>
+</kw>
+<kw name="Clear Element Text" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" starttime="20220419 22:47:05.349" endtime="20220419 22:47:05.417"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<arg>${text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220419 22:47:05.419" level="INFO">Typing text 'quachh@science.regn.net' into text field 'xpath=//form[@class='form form-login']//input[@name='login[username]']'.</msg>
+<status status="PASS" starttime="20220419 22:47:05.418" endtime="20220419 22:47:05.580"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${entered_text}</var>
+<arg>${locator}</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20220419 22:47:05.611" level="INFO">${entered_text} = quachh@science.regn.net</msg>
+<status status="PASS" starttime="20220419 22:47:05.581" endtime="20220419 22:47:05.611"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>'${entered_text}'</arg>
+<arg>'${text}'</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220419 22:47:05.612" endtime="20220419 22:47:05.613"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.300" endtime="20220419 22:47:05.613"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:04.978" endtime="20220419 22:47:05.613"/>
+</kw>
+<kw name="Input password" library="login_page">
+<arg>${password}</arg>
+<kw name="Verify Web Elements Are Visible" library="common_keywords">
+<arg>${login_page.pw_box}</arg>
+<doc>This keyword verify that page contains elements specified in arguments and verify each element is visible
+${elems} - Varargs of locators or webelements</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${elems}[0]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20220419 22:47:05.619" endtime="20220419 22:47:05.643"/>
+</kw>
+<for flavor="IN">
+<var>${elem}</var>
+<value>@{elems}</value>
+<iter>
+<var name="${elem}">xpath=//form[@class='form form-login']//input[@name='login[password]']</var>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${elem}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220419 22:47:05.645" endtime="20220419 22:47:05.667"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.644" endtime="20220419 22:47:05.668"/>
+</iter>
+<status status="PASS" starttime="20220419 22:47:05.644" endtime="20220419 22:47:05.668"/>
+</for>
+<status status="PASS" starttime="20220419 22:47:05.617" endtime="20220419 22:47:05.668"/>
+</kw>
+<kw name="Input Text And Verify Input For Web Element" library="common_keywords">
+<arg>${login_page.pw_box}</arg>
+<arg>${password}</arg>
+<doc>${locator} - could be any selenium locator and webelement object
+${text} - text to be verified</doc>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${retry} x</arg>
+<arg>${duration} sec</arg>
+<arg>SeleniumLibrary.Page Should Contain Element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220419 22:47:05.683" level="INFO">Current page contains element 'xpath=//form[@class='form form-login']//input[@name='login[password]']'.</msg>
+<status status="PASS" starttime="20220419 22:47:05.673" endtime="20220419 22:47:05.683"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.673" endtime="20220419 22:47:05.683"/>
+</kw>
+<kw name="Clear Element Text" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" starttime="20220419 22:47:05.684" endtime="20220419 22:47:05.751"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<arg>${text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220419 22:47:05.752" level="INFO">Typing text 'hien@2345' into text field 'xpath=//form[@class='form form-login']//input[@name='login[password]']'.</msg>
+<status status="PASS" starttime="20220419 22:47:05.752" endtime="20220419 22:47:05.867"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${entered_text}</var>
+<arg>${locator}</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20220419 22:47:05.885" level="INFO">${entered_text} = hien@2345</msg>
+<status status="PASS" starttime="20220419 22:47:05.868" endtime="20220419 22:47:05.885"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>'${entered_text}'</arg>
+<arg>'${text}'</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220419 22:47:05.886" endtime="20220419 22:47:05.886"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.671" endtime="20220419 22:47:05.887"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.614" endtime="20220419 22:47:05.887"/>
+</kw>
+<kw name="Click login" library="login_page">
+<kw name="Verify Web Elements Are Visible" library="common_keywords">
+<arg>${login_page.SignIn_btn}</arg>
+<doc>This keyword verify that page contains elements specified in arguments and verify each element is visible
+${elems} - Varargs of locators or webelements</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${elems}[0]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20220419 22:47:05.892" endtime="20220419 22:47:05.906"/>
+</kw>
+<for flavor="IN">
+<var>${elem}</var>
+<value>@{elems}</value>
+<iter>
+<var name="${elem}">xpath=//button[@class='action login primary']/span[text()='Sign In']</var>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${elem}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220419 22:47:05.907" endtime="20220419 22:47:05.926"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.906" endtime="20220419 22:47:05.926"/>
+</iter>
+<status status="PASS" starttime="20220419 22:47:05.906" endtime="20220419 22:47:05.926"/>
+</for>
+<status status="PASS" starttime="20220419 22:47:05.890" endtime="20220419 22:47:05.926"/>
+</kw>
+<kw name="Click Element" library="common_keywords">
+<arg>${login_page.SignIn_btn}</arg>
+<doc>${locator} - could be any selenium locator and webelement object
+${timeout} - &lt;optional&gt;
+Make sure that ${GLOBALTIMEOUT} can be accessed globally</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220419 22:47:05.931" endtime="20220419 22:47:05.948"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220419 22:47:05.949" level="INFO">Clicking element 'xpath=//button[@class='action login primary']/span[text()='Sign In']'.</msg>
+<status status="PASS" starttime="20220419 22:47:05.949" endtime="20220419 22:47:07.652"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.929" endtime="20220419 22:47:07.652"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:05.887" endtime="20220419 22:47:07.653"/>
+</kw>
+<status status="PASS" starttime="20220419 22:47:03.433" endtime="20220419 22:47:07.654"/>
+</kw>
+<tag>tc01</tag>
+<status status="PASS" starttime="20220419 22:46:55.726" endtime="20220419 22:47:07.657"/>
+</test>
+<status status="PASS" starttime="20220419 22:46:53.573" endtime="20220419 22:47:07.662"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">tc01</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Asia">Asia</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220419 22:46:55.702" level="WARN">Imported resource file 'F:\ROBOT\DELTA\Web-Development\imports\api_imports.robot' is empty.</msg>
+<msg timestamp="20220419 22:46:55.713" level="WARN">Imported resource file 'F:\ROBOT\DELTA\Web-Development\keywords\common\prepare.robot' is empty.</msg>
+</errors>
+</robot>
